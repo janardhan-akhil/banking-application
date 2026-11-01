@@ -31,3 +31,9 @@ management:
 
 server:
   port: 8080
+
+security:
+  jwt:
+    secret: Zo+p2QJKQy6kmeeiopOwfz8oYoO01scWtwJQcU4hyds=
+    issuer: banking-application
+    access-token-ttl: 15m

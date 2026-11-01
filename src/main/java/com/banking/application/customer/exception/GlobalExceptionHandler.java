@@ -1,11 +1,13 @@
 
 package com.banking.application.customer.exception;
 
+import com.banking.application.auth.service.DuplicateBankingUserException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -50,6 +52,26 @@ public class GlobalExceptionHandler {
                 HttpStatus.CONFLICT,
                 "The request conflicts with an existing database record"
         );
+    }
+
+    @ExceptionHandler(DuplicateBankingUserException.class)
+    public ResponseEntity<ProblemDetail> handleDuplicateBankingUser(
+            DuplicateBankingUserException ex) {
+
+        ProblemDetail body = ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT, ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ProblemDetail> handleAuthenticationFailure(
+            AuthenticationException ex) {
+
+        ProblemDetail body = ProblemDetail.forStatusAndDetail(
+                HttpStatus.UNAUTHORIZED, "Invalid email or password");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
 
     private ResponseEntity<ProblemDetail> problem(
