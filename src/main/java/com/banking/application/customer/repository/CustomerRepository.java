@@ -11,4 +11,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     boolean existsByEmail(String email);
     Optional<Customer> findByCustomerReference(String reference);
     long countByStatus(CustomerStatus status);
+
+    // Inside CustomerRepository
+    Optional<Customer> findByEmailIgnoreCase(String email);
 }

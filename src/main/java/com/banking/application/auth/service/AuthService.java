@@ -4,9 +4,9 @@ package com.banking.application.auth.service;
 import com.banking.application.auth.dto.AuthResponse;
 import com.banking.application.auth.dto.LoginRequest;
 import com.banking.application.auth.dto.RegisterRequest;
-import com.banking.application.auth.entity.BankingRole;
 import com.banking.application.auth.entity.BankingUser;
 import com.banking.application.auth.repository.BankingUserRepository;
+import com.banking.application.exception.DuplicateBankingUserException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,7 +59,7 @@ public class AuthService {
         BankingUser user = new BankingUser(
                 email,
                 passwordEncoder.encode(request.password()),
-                BankingRole.CUSTOMER
+                request.role()
         );
 
         userRepository.save(user);

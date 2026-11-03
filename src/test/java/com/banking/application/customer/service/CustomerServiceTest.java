@@ -4,8 +4,8 @@ package com.banking.application.customer.service;
 import com.banking.application.customer.dto.CreateCustomerRequest;
 import com.banking.application.customer.dto.CustomerResponse;
 import com.banking.application.customer.entity.Customer;
-import com.banking.application.customer.exception.DuplicateCustomerException;
-import com.banking.application.customer.exception.CustomerNotFoundException;
+import com.banking.application.exception.DuplicateCustomerException;
+import com.banking.application.exception.CustomerNotFoundException;
 import com.banking.application.customer.repository.CustomerRepository;
 
 import org.junit.jupiter.api.Test;

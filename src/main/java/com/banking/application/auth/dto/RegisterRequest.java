@@ -1,5 +1,6 @@
 package com.banking.application.auth.dto;
 
+import com.banking.application.auth.entity.BankingRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -17,6 +18,9 @@ public record RegisterRequest(
                 regexp = ".*[A-Za-z].*",
                 message = "Password must contain at least one letter"
         )
-        String password
+        String password,
+
+        BankingRole role
+
 ) {
 }

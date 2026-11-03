@@ -45,6 +45,14 @@ public class Customer {
 
     protected Customer() {
     }
+    public void activate() {
+        if (this.status != CustomerStatus.PENDING) {
+            throw new IllegalStateException(
+                    "Only pending customers can be activated");
+        }
+
+        this.status = CustomerStatus.ACTIVE;
+    }
 
     public Customer(
             String customerReference,
