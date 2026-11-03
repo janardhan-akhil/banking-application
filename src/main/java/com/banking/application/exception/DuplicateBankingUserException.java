@@ -1,4 +1,4 @@
-package com.banking.application.auth.service;
+package com.banking.application.exception;
 
 public class DuplicateBankingUserException extends RuntimeException {
 

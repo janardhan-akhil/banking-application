@@ -1,4 +1,4 @@
-package com.banking.application.customer.exception;
+package com.banking.application.exception;
 
 public class DuplicateCustomerException extends RuntimeException {
     public DuplicateCustomerException(String email) {
