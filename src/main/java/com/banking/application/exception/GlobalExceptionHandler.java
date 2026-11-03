@@ -1,7 +1,6 @@
 
-package com.banking.application.customer.exception;
+package com.banking.application.exception;
 
-import com.banking.application.auth.service.DuplicateBankingUserException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -73,6 +72,21 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
+
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleAccountNotFound(
+            AccountNotFoundException ex) {
+        return problem(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(CustomerNotEligibleException.class)
+    public ResponseEntity<ProblemDetail> handleCustomerNotEligible(
+            CustomerNotEligibleException ex) {
+        return problem(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+
 
     private ResponseEntity<ProblemDetail> problem(
             HttpStatus status, String detail) {

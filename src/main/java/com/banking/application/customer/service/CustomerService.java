@@ -5,8 +5,8 @@ import com.banking.application.customer.dto.CreateCustomerRequest;
 import com.banking.application.customer.dto.CustomerResponse;
 import com.banking.application.customer.entity.Customer;
 import com.banking.application.customer.entity.CustomerStatus;
-import com.banking.application.customer.exception.CustomerNotFoundException;
-import com.banking.application.customer.exception.DuplicateCustomerException;
+import com.banking.application.exception.CustomerNotFoundException;
+import com.banking.application.exception.DuplicateCustomerException;
 import com.banking.application.customer.repository.CustomerRepository;
 
 import org.springframework.data.domain.Page;
@@ -24,6 +24,19 @@ public class CustomerService {
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
+    }
+
+    @Transactional
+    public CustomerResponse activateCustomer(Long customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() ->
+                        new CustomerNotFoundException(customerId));
+
+        customer.activate();
+
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return toResponse(savedCustomer);
     }
 
     @Transactional
